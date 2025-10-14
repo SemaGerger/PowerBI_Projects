@@ -1,0 +1,20 @@
+-- Measures
+Total Sales = SUM(Sales[TotalSales])
+Total Sales = SUMX('Sales', 'Sales'[Quantity] * 'Sales'[UnitPrice])
+Total Sales (Fixed) = CALCULATE (ALL (Sales[TotalSales]))
+Total Sales (No Filter) = CALCULATE([Total Sales], REMOVEFILTERS('Products'))
+
+Total Profit = SUM(Sales[Profit])
+
+
+
+--her satıştan elde edilen KÂR
+Total Profit = 
+SUMX(
+    'Sales',
+    ('Sales'[UnitPrice] - RELATED('Products'[Cost])) * 'Sales'[Quantity]
+)
+
+
+
+Sales_Total_All = CALCULATE(SUM('1_Sales'[Total]), ALL('1_Sales'))

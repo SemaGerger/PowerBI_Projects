@@ -1,0 +1,6 @@
+EventID,EmployeeID,EventType,EventDate,Description
+1,1001,Hire,2018-03-01,"İlk işe alım"
+2,1003,Hire,2021-09-01,"Yeni personel"
+3,1005,Termination,2023-06-15,"Performans düşüklüğü"
+4,1002,Promotion,2022-05-01,"Kıdemli finans uzmanı oldu"
+5,1004,Bonus,2024-12-20,"Başarı ödülü verildi"

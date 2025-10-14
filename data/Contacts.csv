@@ -1,0 +1,6 @@
+ContactID,EmployeeID,Email,Phone,Address
+1,1001,ayse.demir@firma.com,5541112233,"Şişli, Halaskargazi Cd. No:22, İstanbul"
+2,1002,mehmet.kaya@firma.com,5551112233,"Çankaya, Atatürk Blv. No:140, Ankara"
+3,1003,elif.sahin@firma.com,5561112233,"Bornova, Kazım Dirik Mh., İzmir"
+4,1004,ahmet.koc@firma.com,5571112233,"Nilüfer, FSM Blv. No:45, Bursa"
+5,1005,zeynep.yildiz@firma.com,5581112233,"Muratpaşa, Lara Cd. No:33, Antalya"
