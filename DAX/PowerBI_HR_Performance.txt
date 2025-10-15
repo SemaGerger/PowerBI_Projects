@@ -1,10 +1,4 @@
---Table
+--Column
 
-Employee_Calculated =
-SELECTCOLUMNS(
-    Employees,
-    "EmployeeID", Employees[EmployeeID],
-    "FullName", TRIM(COALESCE(Employees[FirstName], "") & " " & COALESCE(Employees[LastName], "")),
-    "Age", DATEDIFF(Employees[BirthDate], TODAY(), YEAR),
-    "YearsInCompany", DATEDIFF(Employees[HireDate], TODAY(), YEAR)
-)
+--Employees
+"_FullName", TRIM(Employees[FirstName] & " " & Employees[LastName]),
