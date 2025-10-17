@@ -2,3 +2,14 @@
 
 --Employees
 "_FullName", TRIM(Employees[FirstName] & " " & Employees[LastName]),
+
+   "EmployeeID", Employees[EmployeeID],
+    "FullName", TRIM(Employees[FirstName] & " " & Employees[LastName]),
+    "Age", DATEDIFF(Employees[BirthDate], TODAY(), YEAR),
+    "YearsInCompany", DATEDIFF(Employees[HireDate], TODAY(), YEAR),
+    "ContactID", Employees[ContactID],
+    "Address", RELATED(Contacts[Address]),
+    "City",
+        VAR FullAddress = RELATED(Contacts[Address])
+        VAR LastCommaPos = FIND("@", SUBSTITUTE(FullAddress, ",", "@", LEN(FullAddress) - LEN(SUBSTITUTE(FullAddress, ",", ""))))
+        RETURN TRIM(RIGHT(FullAddress, LEN(FullAddress) - LastCommaPos))
