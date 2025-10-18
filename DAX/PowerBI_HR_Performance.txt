@@ -13,3 +13,29 @@
         VAR FullAddress = RELATED(Contacts[Address])
         VAR LastCommaPos = FIND("@", SUBSTITUTE(FullAddress, ",", "@", LEN(FullAddress) - LEN(SUBSTITUTE(FullAddress, ",", ""))))
         RETURN TRIM(RIGHT(FullAddress, LEN(FullAddress) - LastCommaPos))
+
+-- Tablo İzin
+
+Toplam Hak Edilen Yıllık İzin = 
+VAR HireDate = SELECTEDVALUE(Employees[HireDate])
+VAR YearsWorked = DATEDIFF(HireDate, TODAY(), YEAR)
+VAR FirstPeriod = MIN(YearsWorked, 5)
+VAR SecondPeriod = MAX(MIN(YearsWorked - 5, 9), 0)
+VAR ThirdPeriod = MAX(YearsWorked - 14, 0)
+RETURN
+(FirstPeriod * 14) + (SecondPeriod * 20) + (ThirdPeriod * 26)
+
+--
+
+Toplam Kullandığı Yıllık İzin = 
+CALCULATE(
+    SUM('Leaves'[UsedDays]),
+    FILTER(
+        'Leaves',
+        'Leaves'[LeaveType] = "Yıllık"
+    )
+)
+
+--
+
+Toplam Kullanabileceği Yıllık İzin = [Toplam Hak Edilen Yıllık İzin]-[Toplam Kullandığı Yıllık İzin]
