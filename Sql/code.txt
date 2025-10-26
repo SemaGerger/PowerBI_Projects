@@ -1,0 +1,26 @@
+CREATE DATABASE DenemeDB;
+
+CREATE TABLE employees (
+    employee_id        NUMBER(6) PRIMARY KEY,
+    first_name         VARCHAR2(20) NOT NULL,
+    last_name          VARCHAR2(25) NOT NULL,
+    gender             VARCHAR2(7) NOT NULL,
+    tc_kimlik_no       VARCHAR2(12) UNIQUE,
+    uyruk              VARCHAR2(20),
+    medeni_durum       VARCHAR2(15),
+    kan_grubu          VARCHAR2(5),
+    birth_date         DATE,
+    sicil_no           VARCHAR2(20) UNIQUE,
+    egitim_durumu      VARCHAR2(50),
+    ehliyet_tipi       VARCHAR2(20),
+    calisma_durumu     VARCHAR2(15) DEFAULT 'AKTIF',
+    ise_baslama_tarihi DATE NOT NULL,
+    isten_ayrilma_tarihi DATE,
+    performance_puan   NUMBER(3,1),
+    job_id             VARCHAR2(10) NOT NULL,
+    position_id        NUMBER(4),
+    department_id      NUMBER(4),
+    manager_id         NUMBER(6),
+    created_date       DATE DEFAULT SYSDATE,
+    CONSTRAINT fk_emp_manager FOREIGN KEY (manager_id) REFERENCES employees(employee_id)
+);

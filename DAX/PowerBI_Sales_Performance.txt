@@ -1,3 +1,25 @@
+*Toplam Satış Geliri		Tüm satışların toplam tutarı
+
+
+
+*Toplam Kâr (Profit) 		Gelir - Maliyet farkı
+*Ürün Kategorisi Bazında Satış 	Furniture, Electronics, Home Appliances karşılaştırması
+*Satış Temsilcisi Performansı	En çok satış yapan personel
+*Bölgesel Satış Dağılımı	İstanbul, Ankara, İzmir, vs.
+*İndirim Oranı Etkisi		Discount değişiminin Revenue’ye etkisi
+*Müşteri Tipine Göre Satış	Retail, Corporate, Online
+
+Quantity: adet
+UnitPrice: birim fiyatı
+Discount: indirim
+Total: Toplam 
+Revenue: Maliyet
+Profit: kar
+TaxRate: vergi oranı
+TaxAmount: Vergi tutarı. Total * TaxRate
+GrandTotal: Vergili toplam tutar. Total + TaxAmount
+
+
 -- Measures
 Total Sales = SUM(Sales[TotalSales])
 Total Sales = SUMX('Sales', 'Sales'[Quantity] * 'Sales'[UnitPrice])
@@ -18,3 +40,24 @@ SUMX(
 
 
 Sales_Total_All = CALCULATE(SUM('1_Sales'[Total]), ALL('1_Sales'))
+
+
+
+DimDate = 
+ADDCOLUMNS(
+    CALENDAR(DATE(2024,1,1), DATE(2025,12,31)),
+    "Year", YEAR([Date]),
+    "Month", MONTH([Date]),
+    "Day", DAY([Date]),
+    "WeekNum", WEEKNUM([Date]),
+    "MonthName", FORMAT([Date], "MMMM"),
+    "Quarter", QUARTER([Date]),
+    "DateKey", YEAR([Date])*10000 + MONTH([Date])*100 + DAY([Date])
+)
+
+
+FactSales:
+name: DateKey
+formul: Date.Year([Date])*10000 + Date.Month([Date])*100 + Date.Day([Date])
+yada DAX formul: DateKey = YEAR(FactSales[Date])*10000 + MONTH(FactSales[Date])*100 + DAY(FactSales[Date])
+

@@ -1,0 +1,19 @@
+ProductID,ProductName,CategoryID,Brand
+P101,Laptop Pro 15",C01,TechNova
+P102,Laptop Air 13",C01,TechNova
+P105,Smartphone A20,C01,CellOne
+P106,Smartphone X25,C01,CellOne
+P107,Smartwatch Fit 2,C01,CellOne
+P108,Tablet Pro 12",C01,TechNova
+P109,Tablet Air 11",C01,TechNova
+P203,Office Chair X5,C02,FurniLine
+P204,Office Chair X10,C02,FurniLine
+P205,Standing Desk S,C02,FurniLine
+P208,Ergonomic Desk,C02,FurniLine
+P211,Bookshelf XL,C02,WoodPro
+P304,Air Purifier A3,C03,HomeLife
+P305,Vacuum Cleaner V,C03,HomeLife
+P307,Coffee Machine Z,C03,HomeLife
+P309,Microwave M9,C03,HomeLife
+P310,Blender Mix 5,C03,HomeLife
+P320,Toaster Mini,C03,HomeLife
