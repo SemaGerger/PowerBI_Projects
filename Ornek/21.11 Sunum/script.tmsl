@@ -1,0 +1,337 @@
+{
+  "createOrReplace": {
+    "object": {
+      "database": "dca6d9c5-4bc1-49df-869b-8bba4f4613db",
+      "table": "Key Measure"
+    },
+    "table": {
+      "name": "Key Measure",
+      "lineageTag": "7e653104-5686-4ad6-ada9-441eaf27b907",
+      "columns": [
+        {
+          "type": "calculatedTableColumn",
+          "name": "Column",
+          "dataType": "int64",
+          "isNameInferred": true,
+          "isDataTypeInferred": true,
+          "isHidden": true,
+          "sourceColumn": "[Column]",
+          "formatString": "0",
+          "lineageTag": "0725fc0c-2f64-462d-9bfd-6ff10d42a9fb",
+          "summarizeBy": "sum",
+          "annotations": [
+            {
+              "name": "SummarizationSetBy",
+              "value": "Automatic"
+            }
+          ]
+        }
+      ],
+      "partitions": [
+        {
+          "name": "Key Measure",
+          "mode": "import",
+          "source": {
+            "type": "calculated",
+            "expression": "Row(\"Column\", BLANK())"
+          }
+        }
+      ],
+      "measures": [
+        {
+          "name": "Baslik",
+          "expression": "\"2020 Geliri\"",
+          "lineageTag": "abf20c38-e419-4b45-8b0b-5bc0d1f2025d"
+        },
+        {
+          "name": "Toplam Satış",
+          "expression": "SUM(FactSatislar[Toplam Gelir])",
+          "lineageTag": "b5b86cda-43b1-4868-bf9f-2a249d3e1f63",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "En Büyük Satış",
+          "expression": "MAX(FactSatislar[Toplam Gelir])",
+          "lineageTag": "fbf5304d-095e-4a16-a5f4-df3e25b68988",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "En Düşük Gelir",
+          "expression": "MIN(FactSatislar[Toplam Gelir])",
+          "lineageTag": "9904985b-5d23-4fd3-83aa-d5a1276b74fd",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "Müşteri Sayısı",
+          "expression": [
+            "",
+            "DISTINCTCOUNT(DimMusteri[Müşteri No]",
+            "    )"
+          ],
+          "lineageTag": "34856328-02a6-4602-baab-93eb91855889",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "Satış Sayısı",
+          "expression": "COUNT(FactSatislar[Sipariş No])",
+          "lineageTag": "bc961fd8-dade-4fad-91fd-2b213425c2be",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "Ortalama Tutar",
+          "expression": "AVERAGE(FactSatislar[Toplam Gelir])",
+          "lineageTag": "dd4578af-88a4-41fe-8e0a-14e62f9ca5e0",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "Ürün Sayısı",
+          "expression": "COUNTAX(DimUrun,DimUrun[Ürün İsmi])",
+          "formatString": "0",
+          "lineageTag": "55e1f405-2f89-4f29-a315-8258bf93a064"
+        },
+        {
+          "name": "Toplam tutar",
+          "expression": [
+            "",
+            "Var TT=MAX('Calendar'[Date])",
+            "return",
+            "CALCULATE(SUM(FactSatislar[Birim Fiyat]),'Calendar'[Date]=TT)"
+          ],
+          "lineageTag": "17a95c4e-f69a-445b-9870-f2356fa58f10",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "Yüzde",
+          "expression": "[Toplam tutar]/[Toplam Satış]",
+          "lineageTag": "5231c9c1-035f-49a5-9e4a-84eb8e01a700",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "€ toplam",
+          "expression": [
+            "CALCULATE([Toplam Satış],FactSatislar[Para Birim Kod]=\"EUR\")",
+            ""
+          ],
+          "lineageTag": "037b3b51-3051-4552-868a-4502714c3185",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "1500 Satış Sayısı",
+          "expression": [
+            "CALCULATE(COUNTROWS(FactSatislar),FILTER(FactSatislar,[Toplam tutar]>1500))",
+            ""
+          ],
+          "formatString": "0",
+          "lineageTag": "28f4f66c-f70d-49c6-b09f-e1d2c271a2c6"
+        },
+        {
+          "name": "Haftasonu Satışları",
+          "expression": [
+            "CALCULATE([Toplam tutar],FILTER('Calendar','Calendar'[Haftadurumu]=\"Haftasonu\"))",
+            ""
+          ],
+          "lineageTag": "f50c5e69-0498-4ecd-8c82-b69453c5674a",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "Haftaiçi Satışlar",
+          "expression": [
+            "CALCULATE([Toplam tutar],FILTER('Calendar','Calendar'[Haftadurumu]=\"Haftaiçi\"))",
+            ""
+          ],
+          "lineageTag": "5a8e93e2-7d35-4edb-b5d5-df45b9493738",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "İhracat Satışları",
+          "expression": [
+            "CALCULATE([Toplam tutar],FactSatislar[Kanal]=\"İhracat\")",
+            ""
+          ],
+          "lineageTag": "0b899f86-97dc-4c92-a812-f14807d1de37",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "Toptan Satışları",
+          "expression": [
+            "CALCULATE([Toplam tutar],FactSatislar[Kanal]=\"Toptan\")",
+            ""
+          ],
+          "lineageTag": "7429416a-8e64-43d3-af98-2afc9ccde5cf",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "Kuzey veya Güney Satışı",
+          "expression": [
+            "",
+            "CALCULATE",
+            "([Toplam tutar],Bolge[Ada]",
+            "IN {\"Kuzey\",\"Güney\"}",
+            ")"
+          ],
+          "lineageTag": "15306f2c-8206-4e35-99e5-7e46b3ff8ad0",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "bölge Sayısı",
+          "expression": [
+            "COUNTA(Bolge[Şehir])",
+            ""
+          ],
+          "formatString": "0",
+          "lineageTag": "46af6711-9a83-41d4-acc3-9d74fb176e83"
+        },
+        {
+          "name": "Hamilton Toplam",
+          "expression": [
+            "CALCULATE([Toplam tutar],Bolge[Şehir]=\"Hamilton\")",
+            ""
+          ],
+          "lineageTag": "c0b0da29-5dd4-43da-96e7-48204f9b9173",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "NZD + Toptan",
+          "expression": [
+            "CALCULATE(SUM(FactSatislar[Toplam Gelir]),FactSatislar[Kanal]=\"Toptan\",FactSatislar[Para Birim Kod]=\"NZD\")",
+            ""
+          ],
+          "lineageTag": "fe16fb38-52fa-400d-adfa-94c9c6fdbb94",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "Önceki Çeyrek",
+          "expression": [
+            "CALCULATE([Toplam tutar],DATEADD('Calendar'[Date],-1,QUARTER))",
+            ""
+          ],
+          "lineageTag": "6b9c12b8-dfc1-4b44-a406-f224e997a211",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "Önceki Ay",
+          "expression": [
+            "CALCULATE([Toplam tutar],DATEADD('Calendar'[Date],-1,MONTH))",
+            ""
+          ],
+          "lineageTag": "ca3e4d04-e3ae-4aad-8bdd-0003aa193d33",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        },
+        {
+          "name": "ÖncekiYıl",
+          "expression": [
+            "CALCULATE([Toplam tutar],SAMEPERIODLASTYEAR('Calendar'[Date].[Date]))",
+            ""
+          ],
+          "lineageTag": "ae84ec60-3351-4c11-8b97-a2ea5560d293",
+          "annotations": [
+            {
+              "name": "PBI_FormatHint",
+              "value": "{\"isGeneralNumber\":true}"
+            }
+          ]
+        }
+      ],
+      "annotations": [
+        {
+          "name": "PBI_Id",
+          "value": "e0eda5acaae44d21bbf0811eaa147773"
+        },
+        {
+          "name": "436ba87b-9c83-4389-a31b-ebd06a36be98",
+          "value": "{\"Expression\":\"\"}"
+        }
+      ]
+    }
+  }
+}
